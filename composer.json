@@ -1,0 +1,44 @@
+{
+    "name": "xhyperf/logger-plus",
+    "description": "",
+    "license": "MIT",
+    "keywords": [
+        "php",
+        "swoole",
+        "hyperf",
+        "logger"
+    ],
+    "homepage": "https://yangqi.co",
+    "support": {
+        "issues": "https://github.com/xhyperf/logger-plus/issues",
+        "source": "https://github.com/xhyperf/logger-plus",
+        "docs": "https://yangqi.co",
+        "pull-request": "https://github.com/xhyperf/logger-plus/pulls"
+    },
+    "require": {
+        "php": ">=8.1",
+        "hyperf/collection": "~3.1",
+        "hyperf/di": "~3.1",
+        "hyperf/logger": "~3.1"
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": {
+            "XHyperf\\LoggerPlus\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HyperfTest\\LoggerPlus\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "hyperf": {
+            "config": "XHyperf\\LoggerPlus\\ConfigProvider"
+        }
+    }
+}
