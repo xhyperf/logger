@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace XHyperf\LoggerPlus;
 
 use Hyperf\Contract\StdoutLoggerInterface;
+use XHyperf\LoggerPlus\Database\DbQueryLog;
+use XHyperf\LoggerPlus\Database\DbTransactionLog;
 use XHyperf\LoggerPlus\Guzzle\GuzzleLogAspect;
 
 class ConfigProvider
@@ -16,6 +18,8 @@ class ConfigProvider
                 StdoutLoggerInterface::class => StdoutLoggerFactory::class,
             ],
             'listeners'    => [
+                DbQueryLog::class,
+                DbTransactionLog::class,
             ],
             'annotations'  => [
                 'scan' => [
