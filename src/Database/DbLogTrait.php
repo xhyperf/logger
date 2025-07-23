@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace XHyperf\LoggerPlus\Database;
 
+use Hyperf\Context\Context;
 use XHyperf\LoggerPlus\ConfigKey;
 
 use function Hyperf\Config\config;
@@ -28,10 +29,21 @@ trait DbLogTrait
     {
         foreach (debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS) as $trace) {
             if (! str_starts_with($trace['file'] ?? '', BASE_PATH . '/vendor')) {
-                return $trace;
+                return compact('trace');
             }
         }
 
-        return [];
+        return ['trace' => []];
+    }
+
+    /**
+     * 获取 SQL 序号
+     * @return array
+     */
+    protected function getIdx(): array
+    {
+        return [
+            'idx' => Context::override(__NAMESPACE__ . '@idx_sql', fn($v) => ++$v),
+        ];
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace XHyperf\LoggerPlus\Database;
 
+use Hyperf\Context\Context;
 use Hyperf\Database\Events\TransactionBeginning;
 use Hyperf\Database\Events\TransactionCommitted;
 use Hyperf\Database\Events\TransactionRolledBack;
@@ -34,10 +35,11 @@ class DbTransactionLog implements ListenerInterface
                 $event instanceof TransactionCommitted => 'commit',
                 $event instanceof TransactionRolledBack => 'rollBack',
             },
+            ...$this->getIdx(),
         ];
 
         if ($event instanceof TransactionRolledBack || $this->traceEnable()) {
-            $data['trace'] = $this->getTrace();
+            $data += $this->getTrace();
         }
 
         Log::gather('sql', $data);

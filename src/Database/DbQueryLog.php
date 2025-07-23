@@ -16,6 +16,8 @@ class DbQueryLog implements ListenerInterface
 {
     use DbLogTrait;
 
+    const string MASK = '@__u003f__@';
+
     public function __construct(protected ConfigInterface $config)
     {
     }
@@ -38,20 +40,20 @@ class DbQueryLog implements ListenerInterface
             foreach ($event->bindings as $value) {
                 $sql = Str::replaceFirst(
                     '?',
-                    sprintf("'%s'", is_string($value) ? str_replace('?', '@__u003f__@', $value) : $value),
+                    sprintf("'%s'", is_string($value) ? str_replace('?', self::MASK, $value) : $value),
                     $sql
                 );
             }
         }
 
         $data = [
-            'sql'        => str_replace('@__u003f__@', '?', $sql),
+            'sql'        => str_replace(self::MASK, '?', $sql),
             'query_time' => $event->time,
-            'idx'        => Context::override('@idx_sql', fn($v) => ++$v),
+            ...$this->getIdx(),
         ];
 
         if ($this->traceEnable()) {
-            $data['trace'] = $this->getTrace();
+            $data += $this->getTrace();
         }
 
         Log::gather('sql', $data);
