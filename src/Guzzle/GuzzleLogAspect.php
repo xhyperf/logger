@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XHyperf\LoggerPlus\Guzzle;
 
 use GuzzleHttp\HandlerStack;

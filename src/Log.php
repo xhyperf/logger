@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XHyperf\LoggerPlus;
 
 use Hyperf\Collection\Arr;
@@ -231,9 +233,11 @@ class Log
      */
     public static function getOutputType(bool $fromConfig = false): int
     {
-        return $fromConfig
+        $type = $fromConfig
             ? config(ConfigKey::OUTPUT_TYPE, Log::OUTPUT_TYPE_CONSOLE)
             : env("LOG_OUTPUT_TYPE", Log::OUTPUT_TYPE_CONSOLE);
+
+        return (int)$type;
     }
 
     /**

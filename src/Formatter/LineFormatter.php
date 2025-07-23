@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XHyperf\LoggerPlus\Formatter;
 
 use Monolog\Level;
@@ -21,8 +23,8 @@ class LineFormatter extends \Monolog\Formatter\LineFormatter
             $record = $record->with(
                 message: "\e[1D",
                 context: $record['context']['data'] ?? $record['context'],
-                level: Level::Info,
-                extra: ['level_name' => $record['context']['tag'] ?? $record->level->getName()]
+                level  : Level::Info,
+                extra  : ['level_name' => $record['context']['tag'] ?? $record->level->getName()]
             );
         }
 

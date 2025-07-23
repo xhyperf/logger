@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XHyperf\LoggerPlus\Handler;
 
 use Monolog\Handler\AbstractProcessingHandler;
@@ -13,8 +15,8 @@ class StdoutHandler extends AbstractProcessingHandler
     protected OutputInterface $output;
 
     /**
-     * @param int|string|Level $level 错误级别
-     * @param bool $bubble 是否处理其他 handler 的日志
+     * @param int|string|Level $level  错误级别
+     * @param bool             $bubble 是否处理其他 handler 的日志
      */
     public function __construct(int|string|Level $level = Level::Debug, bool $bubble = true)
     {

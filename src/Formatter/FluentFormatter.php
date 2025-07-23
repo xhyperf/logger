@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XHyperf\LoggerPlus\Formatter;
 
 use DateTimeInterface;
@@ -17,7 +19,7 @@ class FluentFormatter implements FormatterInterface
 {
     public function __construct(protected bool $levelTag = false, protected bool $appendNewline = true)
     {
-        if (!function_exists('json_encode')) {
+        if (! function_exists('json_encode')) {
             throw new RuntimeException('PHP\'s json extension is required to use Monolog\'s FluentdUnixFormatter');
         }
     }
@@ -44,7 +46,7 @@ class FluentFormatter implements FormatterInterface
             $tag = 'gather.' . ($record['context']['tag'] ?? 'gather');
         }
 
-        if (!$this->levelTag) {
+        if (! $this->levelTag) {
             $msg['level']      = $record['level'];
             $msg['level_name'] = $record['level_name'];
         }
