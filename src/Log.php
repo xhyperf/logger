@@ -135,6 +135,7 @@ class Log
         if ($body instanceof ResponseInterface) {
             $contentType = strtolower(Str::before($body->getHeaderLine('content-type'), ';'));
             $body        = (string)$body->getBody();
+            $body        = str_contains($contentType, 'image') ? str_replace("\r\n", ' %n% ', substr($body, 0, 256)) : $body;
 
             $parser = ApplicationContext::getContainer()->get(RequestParserInterface::class);
             if ($parser->has($contentType) && $body) {

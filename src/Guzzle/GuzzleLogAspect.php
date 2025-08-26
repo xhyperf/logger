@@ -73,7 +73,7 @@ class GuzzleLogAspect extends AbstractAspect
         $body = (string)$obj?->getBody();
         $type = $obj?->getHeaderLine('Content-Type') ?: '';
 
-        if (str_contains($type, 'multipart')) {
+        if (str_contains($type, 'multipart') || str_contains($type, 'image')) {
             $body = str_replace("\r\n", ' %n% ', substr($body, 0, 256));
         } elseif ((str_contains($type, 'json')) || (str_starts_with($body, '{'))) {
             $body = json_decode($body, true) ?: $body;
